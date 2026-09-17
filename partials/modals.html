@@ -1,0 +1,220 @@
+<!-- ================= MODAL 1: CUSTOMIZE DISH MODAL ================= -->
+<div id="customizeModal" class="modal-overlay">
+    <div class="modal-card">
+        <button class="modal-close" onclick="closeModal('customizeModal')">✕</button>
+        <img id="customModalImg" class="modal-hero-img" src="" alt="Dish">
+
+        <div class="modal-body">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                <div>
+                    <span id="customModalVegBadge"></span>
+                    <h2 id="customModalTitle" style="font-size: 22px; font-weight: 800;">Dish Name</h2>
+                    <p id="customModalDesc" style="color: var(--gray); font-size: 13px; margin-top: 4px;">Description</p>
+                </div>
+                <span id="customModalBasePrice" style="font-size: 22px; font-weight: 800; color: var(--primary);">₹0</span>
+            </div>
+
+            <!-- Size Selection -->
+            <div class="option-group">
+                <div class="option-group-title">Select Portion Size <span>(Required)</span></div>
+                <div class="radio-tile-group">
+                    <div class="radio-tile selected" onclick="selectSize('Regular', 0, this)">Regular</div>
+                    <div class="radio-tile" onclick="selectSize('Medium / Double', 60, this)">Medium (+₹60)</div>
+                    <div class="radio-tile" onclick="selectSize('Jumbo Family', 120, this)">Jumbo (+₹120)</div>
+                </div>
+            </div>
+
+            <!-- Add-ons Checkboxes -->
+            <div class="option-group">
+                <div class="option-group-title">Add Extra Toppings & Sides <span>(Optional)</span></div>
+                <div class="checkbox-row" onclick="toggleAddon('Extra Mirchi ka Salan', 30, this)">
+                    <span>🥣 Extra Spicy Mirchi ka Salan</span>
+                    <span style="font-weight: 700;">+₹30</span>
+                </div>
+                <div class="checkbox-row" onclick="toggleAddon('Extra Onion Raita', 25, this)">
+                    <span>🥛 Creamy Onion Raita</span>
+                    <span style="font-weight: 700;">+₹25</span>
+                </div>
+                <div class="checkbox-row" onclick="toggleAddon('Gulab Jamun (1 Pc)', 35, this)">
+                    <span>🍯 Hot Gulab Jamun (1 Pc)</span>
+                    <span style="font-weight: 700;">+₹35</span>
+                </div>
+            </div>
+
+            <!-- Quantity & Add Button -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                <div class="stepper">
+                    <button onclick="changeModalQty(-1)">-</button>
+                    <span id="modalQtyVal" style="font-weight: 800;">1</span>
+                    <button onclick="changeModalQty(1)">+</button>
+                </div>
+
+                <button class="modal-footer-btn" onclick="confirmAddToCartFromModal()" style="flex: 1; margin-left: 20px; margin-top: 0;">
+                    <span>Add Item</span>
+                    <span id="modalFinalPrice">₹0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODAL 2: RESTAURANT DETAIL MODAL ================= -->
+<div id="restaurantModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 750px;">
+        <button class="modal-close" onclick="closeModal('restaurantModal')">✕</button>
+        <div id="restModalHeader" style="padding: 25px; background: var(--dark); color: white; border-radius: var(--radius-lg) var(--radius-lg) 0 0;"></div>
+        <div class="modal-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="font-size: 18px;">Recommended Menu Items</h3>
+                <button class="btn-back" style="padding: 4px 12px; font-size: 12px;" onclick="closeModal('restaurantModal')">← Back</button>
+            </div>
+            <div id="restModalMenuList" style="display: flex; flex-direction: column; gap: 14px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODAL 3: CART DRAWER / MODAL ================= -->
+<div id="cartModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 600px;">
+        <button class="modal-close" onclick="closeModal('cartModal')">✕</button>
+        <div class="modal-body">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 15px;">
+                <h2 style="font-size: 22px; font-weight: 800;">🛒 Your Food Basket</h2>
+                <button class="btn-back" style="padding: 4px 12px; font-size: 12px;" onclick="closeModal('cartModal')">← Back to Shopping</button>
+            </div>
+
+            <div id="cartItemsList"></div>
+
+            <!-- Coupon Box -->
+            <div class="coupon-section">
+                <div>
+                    <b style="color: #d97706;">🏷️ Apply Promo Coupon</b>
+                    <p style="font-size: 12px; color: var(--gray);">Use code <b>ZOMATO50</b> for 50% OFF</p>
+                </div>
+                <button onclick="applyCoupon()" style="background: #f59e0b; color: white; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; font-size: 13px;">
+                    Apply
+                </button>
+            </div>
+
+            <!-- Delivery Address -->
+            <div style="margin: 15px 0;">
+                <b style="font-size: 14px;">📍 Delivery Address:</b>
+                <div style="display: flex; gap: 10px; margin-top: 6px;">
+                    <input id="deliveryAddressInput" type="text" value="Flat 402, Jubilee Hills, Hyderabad" style="flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px;">
+                </div>
+            </div>
+
+            <!-- Bill Breakup -->
+            <div style="margin-top: 20px; background: var(--gray-light); padding: 15px; border-radius: 12px;">
+                <div class="bill-row"><span>Item Subtotal</span><span id="billSubtotal">₹0</span></div>
+                <div class="bill-row"><span>Delivery Partner Fee</span><span id="billDelivery">₹30</span></div>
+                <div class="bill-row"><span>Taxes & Packing Charges</span><span>₹20</span></div>
+                <div class="bill-row" id="couponDiscountRow" style="display: none; color: #24963f;">
+                    <span>Coupon Discount</span><span id="billDiscount">-₹0</span>
+                </div>
+                <div class="bill-row total"><span>Total Payable</span><span id="billTotal">₹0</span></div>
+            </div>
+
+            <button class="modal-footer-btn" onclick="proceedToCheckout()" style="margin-top: 20px;">
+                <span>Proceed to Pay</span>
+                <span id="cartModalPayBtnAmount">₹0 →</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODAL 4: LIVE ORDER TRACKER MODAL ================= -->
+<div id="trackerModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 500px; text-align: center;">
+        <div class="modal-body" style="padding: 30px;">
+            <div style="font-size: 50px; margin-bottom: 10px;">🛵</div>
+            <h2 style="font-size: 24px; font-weight: 800;">Order Placed Successfully!</h2>
+            <p style="color: var(--gray); font-size: 14px; margin-top: 4px;">Estimated Delivery: <b style="color: var(--primary);">25-30 Mins</b></p>
+
+            <div class="tracker-steps">
+                <div class="tracker-step completed" id="step1">
+                    <div class="step-circle">✓</div>
+                    <div style="text-align: left;">
+                        <b>Order Received</b>
+                        <p style="font-size: 12px; color: var(--gray);">Restaurant accepted your order</p>
+                    </div>
+                </div>
+                <div class="tracker-step active" id="step2">
+                    <div class="step-circle">2</div>
+                    <div style="text-align: left;">
+                        <b>Preparing Food</b>
+                        <p style="font-size: 12px; color: var(--gray);">Chef is cooking your meal</p>
+                    </div>
+                </div>
+                <div class="tracker-step" id="step3">
+                    <div class="step-circle">3</div>
+                    <div style="text-align: left;">
+                        <b>Out for Delivery</b>
+                        <p style="font-size: 12px; color: var(--gray);">Delivery Partner assigned</p>
+                    </div>
+                </div>
+                <div class="tracker-step" id="step4">
+                    <div class="step-circle">4</div>
+                    <div style="text-align: left;">
+                        <b>Arrived & Delivered</b>
+                        <p style="font-size: 12px; color: var(--gray);">Enjoy your food!</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="modal-footer-btn" onclick="closeModal('trackerModal'); resetCart();" style="justify-content: center;">
+                Back to Home
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODAL 5: USER AUTH MODAL ================= -->
+<div id="authModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 420px;">
+        <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+        <div class="modal-body" style="text-align: center; padding: 30px;">
+            <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 6px;">Login to Zomato</h2>
+            <p style="color: var(--gray); font-size: 13px; margin-bottom: 20px;">Unlock exclusive offers & saved items</p>
+
+            <input id="authEmail" type="email" placeholder="Email or Phone Number" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px;">
+            <input type="password" placeholder="Password" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 20px;">
+
+            <button class="modal-footer-btn" onclick="performLogin()" style="justify-content: center; margin-top: 0;">
+                Continue
+            </button>
+
+            <p style="font-size: 12px; color: var(--gray); margin-top: 15px;">By continuing, you agree to our Terms & Privacy Policy.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODAL 6: LOCATION PICKER MODAL ================= -->
+<div id="locationModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 450px;">
+        <button class="modal-close" onclick="closeModal('locationModal')">✕</button>
+        <div class="modal-body">
+            <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 15px;">Select your Location</h3>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="checkbox-row" onclick="selectLocation('Hyderabad, TS')" style="width: 100%; border-radius: 10px; font-weight: 700;">📍 Hyderabad, TS</button>
+                <button class="checkbox-row" onclick="selectLocation('Mumbai, MH')" style="width: 100%; border-radius: 10px; font-weight: 700;">📍 Mumbai, MH</button>
+                <button class="checkbox-row" onclick="selectLocation('Bengaluru, KA')" style="width: 100%; border-radius: 10px; font-weight: 700;">📍 Bengaluru, KA</button>
+                <button class="checkbox-row" onclick="selectLocation('Delhi NCR')" style="width: 100%; border-radius: 10px; font-weight: 700;">📍 Delhi NCR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODAL 7: FAVORITES / SAVED DISHES ================= -->
+<div id="favoritesModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 550px;">
+        <button class="modal-close" onclick="closeModal('favoritesModal')">✕</button>
+        <div class="modal-body">
+            <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 15px;">❤️ Your Saved Dishes</h2>
+            <div id="favoritesList"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST NOTIFICATIONS -->
+<div id="toastContainer"></div>

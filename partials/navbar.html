@@ -1,0 +1,35 @@
+<nav class="navbar">
+    <div class="logo" onclick="scrollToTop()">
+        zomato <span>PLUS</span>
+    </div>
+
+    <button class="location-btn" onclick="openLocationModal()">
+        📍 <span id="currentLocationText">Hyderabad, TS</span> ▼
+    </button>
+
+    <div class="nav-links">
+        <button class="nav-btn" onclick="scrollToTop()">
+            🏠 Home
+        </button>
+
+        <button class="nav-btn" onclick="showCategory('Biryani')">
+            🍽️ Menu
+        </button>
+
+        <button class="nav-btn" onclick="scrollToSection('restaurantSection')">
+            🏪 Restaurants
+        </button>
+
+        <button class="nav-btn" onclick="openFavoritesModal()">
+            ❤️ Saved (<span id="favCount">0</span>)
+        </button>
+
+        <button class="nav-btn" onclick="openCartModal()">
+            🛒 Cart (<span id="cartCount" class="badge-count">0</span>)
+        </button>
+
+        <button id="userAuthBtn" class="user-profile-btn" onclick="openAuthModal()">
+            👤 Login
+        </button>
+    </div>
+</nav>

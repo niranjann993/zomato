@@ -1,0 +1,23 @@
+<section class="hero">
+    <p class="tagline">🔥 GOOD FOOD • GREAT MOOD • FAST DELIVERY</p>
+    <h1>Discover the best <span>food & drinks</span></h1>
+    <p>Order online from top restaurants near you with instant live tracking</p>
+
+    <div class="search-container">
+        <div class="search-box">
+            <span style="font-size: 20px;">🔍</span>
+            <input id="searchInput" type="text" placeholder="Search for Biryani, Pizza, Burger, Indian..." oninput="handleSearchInput(this.value)">
+            <button onclick="triggerSearch()">Search</button>
+        </div>
+        <!-- Live Search Dropdown -->
+        <div id="searchResultsDropdown" class="search-results-dropdown"></div>
+    </div>
+
+    <!-- Quick Filter Tags -->
+    <div class="quick-filters">
+        <div class="filter-tag" onclick="quickFilterTag('Biryani Special')">🍛 Biryani Special</div>
+        <div class="filter-tag" onclick="quickFilterTag('Pure Veg')">🟢 Pure Veg</div>
+        <div class="filter-tag" onclick="quickFilterTag('Top Rated')">⭐ Rating 4.0+</div>
+        <div class="filter-tag" onclick="quickFilterTag('Offers')">🏷️ Great Offers</div>
+    </div>
+</section>

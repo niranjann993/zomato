@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zomato - Discover the Best Food & Drinks</title>
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Local Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Each section is loaded from its own file in /partials -->
+    <div id="navbar-slot"></div>
+    <div id="hero-slot"></div>
+    <div id="categories-slot"></div>
+    <div id="options-slot"></div>
+    <div id="restaurants-slot"></div>
+    <div id="modals-slot"></div>
+    <div id="footer-slot"></div>
+
+    <!-- Local Script -->
+    <script src="js/script.js"></script>
+
+    <!-- Partial loader: fetches each HTML fragment and injects it,
+         then boots the app once everything is in the DOM.
+         NOTE: fetch() of local files needs a local server (e.g. VS Code
+         "Live Server" extension) — it will NOT work by double-clicking
+         the file directly (file:// URLs block fetch for security). -->
+    <script>
+        const partials = [
+            { id: 'navbar-slot',      file: 'partials/navbar.html' },
+            { id: 'hero-slot',        file: 'partials/hero.html' },
+            { id: 'categories-slot',  file: 'partials/categories.html' },
+            { id: 'options-slot',     file: 'partials/options.html' },
+            { id: 'restaurants-slot', file: 'partials/restaurants.html' },
+            { id: 'modals-slot',      file: 'partials/modals.html' },
+            { id: 'footer-slot',      file: 'partials/footer.html' }
+        ];
+
+        Promise.all(
+            partials.map(p =>
+                fetch(p.file)
+                    .then(res => res.text())
+                    .then(html => { document.getElementById(p.id).outerHTML = html; })
+            )
+        ).then(() => {
+            // All sections are now in the DOM — start the app.
+            initApp();
+        }).catch(err => {
+            console.error('Failed to load a page section:', err);
+            document.body.innerHTML = '<p style="padding:40px;font-family:sans-serif">Could not load page sections. Serve this folder with a local server (e.g. VS Code Live Server) instead of opening index.html directly.</p>';
+        });
+    </script>
+</body>
+</html>

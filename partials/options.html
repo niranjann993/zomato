@@ -1,0 +1,25 @@
+<section id="options">
+    <div class="options-top-nav">
+        <button class="btn-back" onclick="hideOptionsSection()">
+            ← Back to Categories
+        </button>
+        <span style="font-size: 13px; color: var(--gray); font-weight: 600;">Showing active menu options</span>
+    </div>
+
+    <div class="options-top">
+        <div class="options-title">
+            <h2 id="optionTitle">Biryani Options</h2>
+            <p id="optionSubtitle">Handcrafted dishes selected for you</p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="filter-controls">
+            <button class="sub-filter-btn active" onclick="applySubFilter('all', this)">All Items</button>
+            <button class="sub-filter-btn" onclick="applySubFilter('veg', this)">🟢 Pure Veg</button>
+            <button class="sub-filter-btn" onclick="applySubFilter('nonveg', this)">🔴 Non-Veg</button>
+            <button class="sub-filter-btn" onclick="applySubFilter('top', this)">⭐ Top Rated</button>
+        </div>
+    </div>
+
+    <div id="optionContainer" class="option-grid"></div>
+</section>
